@@ -1,0 +1,11 @@
+FROM ubuntu:latest
+ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:
+RUN mkdir /root/inputfiles
+RUN mkdir /root/scripts
+COPY ./inputfiles /root/inputfiles
+COPY ./scripts /root/scripts
+RUN /root/scripts/genStudent.cust
+RUN /root/scripts/permit.cust
+RUN apt update  && apt-get install -y apache2
+RUN mkdir /var/www/html/gamma-z.hm
+COPY ./inputfiles/000-default.conf /etc/apache2/sites-available/
