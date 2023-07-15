@@ -101,5 +101,60 @@ password
 Both strings are  equal
 root@90a1dfc5a803:~/serverscripts#
 
+Docker Compose - 
+
+docker login --username kanagalekarv2511 --password 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 ghcr.io
+
+ docker build . -t ghcr.io/kanagalekarv2511/sysadmtask3myapp
+
+docker push ghcr.io/kanagalekarv2511/sysadmtask3myapp
+
+FROM postgres:latest
+ENV POSTGRES_PASSWORD=mysecretpassword
+COPY ./inputfiles/cleansd.txt /tmp
+ADD ./scripts/postgrescreatetable.sql /docker-entrypoint-initdb.d/
+RUN apt update && apt-get install -y  net-tools vim
+
+docker build . -t ghcr.io/kanagalekarv2511/sysadmtask3mydb
+
+docker push ghcr.io/kanagalekarv2511/sysadmtask3mydb
+
+
+version: '2.19.1'
+services:
+      my-app:
+       image: ghcr.io/kanagalekarv2511/sysadmtask3myapp
+       tty: true
+       stdin_open: true
+       volumes:
+        - /data/Adore
+        - /data/Betsey
+        - /data/Carleen
+        - /data/Dodi
+        - /data/Dottie
+        - /data/Dynah
+        - /data/Elbertine
+        - /data/Gwenneth
+        - /data/Inga
+        - /data/Josephina
+        - /data/Kathryne
+        - /data/Laurel
+        - /data/Maribelle
+        - /data/Meris
+        - /data/Minnnie
+        - /data/Reyna
+        - /data/Selena
+        - /data/Teddy
+        - /data/Trenna
+        - /data/Trish
+      my-db:
+       image: ghcr.io/kanagalekarv2511/sysadmtask3mydb
+       container_name: mydbcontainer
+       ports:
+       - 5432:5432
+
+docker compose -f docker-compose-sysadmtask3.yaml up -d 
+
+
 
 
